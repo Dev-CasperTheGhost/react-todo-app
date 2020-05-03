@@ -3,9 +3,8 @@
 A simple React Todo app using material-ui
 
 - Todos
-
-- [x] Delete Todo
-- [x] Mark as completed
+    - [x] Delete Todo
+    - [x] Mark as completed
 
 ## What I learned
 
