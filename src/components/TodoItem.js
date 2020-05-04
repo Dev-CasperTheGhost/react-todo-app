@@ -9,7 +9,6 @@ import {
 import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-
 class TodoItem extends Component {
 
   deleteTodo = () => {
@@ -19,28 +18,41 @@ class TodoItem extends Component {
 
   markCompleted = () => {
     const todoId = this.props.id;
-    this.props.markCompleted(todoId)
-  }
+    this.props.markCompleted(todoId);
+  };
+
 
   render() {
     return (
-      <Card className='margin-top-15'>
-        <CardContent>
-          <Typography variant='h5' color={this.props.completed  ? "primary": "inherit"} component='h2' style={this.props.completed  ? {textDecoration: "line-through"} : {textDecoration: "none"}}>
-            {this.props.todo}
-          </Typography>
-          <CardActions>
-            <IconButton aria-label='settings' onClick={this.deleteTodo}>
-              <DeleteOutlineOutlinedIcon />
-            </IconButton>
-            <IconButton aria-label='settings' onClick={this.markCompleted}>
-              {
-                this.props.completed ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />
-              }
-            </IconButton>
-          </CardActions>
-        </CardContent>
-      </Card>
+      <div>
+        <Card className='margin-top-15'>
+          <CardContent>
+            <Typography
+              variant='h5'
+              color={this.props.completed ? 'primary' : 'inherit'}
+              component='h2'
+              style={
+                this.props.completed
+                  ? { textDecoration: 'line-through' }
+                  : { textDecoration: 'none' }
+              }>
+              {this.props.todo}
+            </Typography>
+            <CardActions>
+              <IconButton aria-label='settings' onClick={this.deleteTodo}>
+                <DeleteOutlineOutlinedIcon />
+              </IconButton>
+              <IconButton aria-label='settings' onClick={this.markCompleted}>
+                {this.props.completed ? (
+                  <CheckBoxIcon />
+                ) : (
+                  <CheckBoxOutlineBlankIcon />
+                )}
+              </IconButton>
+            </CardActions>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
 }

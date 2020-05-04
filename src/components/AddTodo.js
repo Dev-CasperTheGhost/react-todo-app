@@ -10,7 +10,7 @@ class AddTodo extends Component {
       todoItem: {
         id: 0,
         value: '',
-        completed: false
+        completed: false,
       },
     };
   }
@@ -19,26 +19,30 @@ class AddTodo extends Component {
     event.preventDefault();
     const todoItem = this.state.todoItem;
     this.props.newTodo(todoItem);
-    
-    
+
+    this.setState({
+      todoItem: {
+        value: "",
+      },
+    });
   };
 
   handleTodoValue = (event) => {
-    const todoId = this.props.todos.length+1;
+    const todoId = this.props.todos.length + 1;
     this.setState({
       todoItem: {
         //   Set the ID
         id: todoId,
         // Set the value
         value: event.target.value,
-        completed: false
+        completed: false,
       },
     });
   };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} className="margin-top-15">
+      <form onSubmit={this.onSubmit} className='margin-top-15'>
         <FormControl fullWidth>
           <InputLabel>What Are Going Todo</InputLabel>
           <Input
