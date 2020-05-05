@@ -16,7 +16,7 @@ class TodoItem extends Component {
   };
 
   markCompleted = () => {
-    const todoId = this.props.id;
+    const todoId = this.props.index;
     this.props.markCompleted(todoId);
   };
 
@@ -24,8 +24,9 @@ class TodoItem extends Component {
     return (
       <div>
         <Card className='margin-top-15'>
-          <CardContent>
+          <CardContent className='todo-item'>
             <Typography
+              id='todoEditField'
               variant='h5'
               color={this.props.completed ? 'primary' : 'inherit'}
               component='h2'

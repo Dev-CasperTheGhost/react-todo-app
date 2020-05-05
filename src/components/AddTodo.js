@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormControl, InputLabel, Input } from '@material-ui/core';
+import { FormControl, InputLabel, Input, Button } from '@material-ui/core';
 
 class AddTodo extends Component {
   constructor() {
@@ -22,7 +22,7 @@ class AddTodo extends Component {
 
     this.setState({
       todoItem: {
-        value: "",
+        value: '',
       },
     });
   };
@@ -42,7 +42,7 @@ class AddTodo extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit} className='margin-top-15'>
+      <form onSubmit={this.onSubmit} className='margin-top-15 add-todo-form'>
         <FormControl fullWidth>
           <InputLabel>What Are Going Todo</InputLabel>
           <Input
@@ -52,6 +52,9 @@ class AddTodo extends Component {
             required
           />
         </FormControl>
+        <Button variant='contained' color='primary' size='medium' type='submit'>
+          Add Todo
+        </Button>
       </form>
     );
   }

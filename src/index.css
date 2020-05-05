@@ -15,3 +15,24 @@ code {
 .margin-top-15 {
   margin-top: 15px;
 }
+
+.buttons {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 10px;
+}
+
+.add-todo-form {
+  display: grid;
+  grid-template-columns: 90% 9%;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.todo-item {
+  display: grid;
+  margin-left: 20px;
+  grid-template-columns: 80% 20%;
+  align-items: center;
+  gap: 10px;
+}

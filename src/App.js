@@ -40,16 +40,32 @@ class App extends Component {
     });
   };
 
+  deleteAll = () => {
+    this.setState({
+      todos: []
+    });
+  }
+
+
   render() {
     return (
       <Container>
         <AddTodo newTodo={this.addNewTodo} todos={this.state.todos} />
-        <Button
-          fullWidth
-          variant="contained"
-          color='primary'
-          title="reverse the order of the todos list"
-          onClick={this.filter}>Reverse Order</Button>
+        <div className="buttons">
+          <Button
+            fullWidth
+            variant="contained"
+            color='primary'
+            title="reverse the order of the todos list"
+            onClick={this.filter}>Reverse Order</Button>
+          <Button
+            fullWidth
+            variant="contained"
+            color='secondary'
+            title="delete all the todos from the list"
+            onClick={this.deleteAll}>Delete All</Button>
+        </div>
+
         {
           this.state.todos.map((todo, index) => {
             return <TodoItem
