@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import AddTodo from './components/AddTodo'
-import { Container } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
 import TodoItem from './components/TodoItem'
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
 
   addNewTodo = (newTodo) => {
     this.setState({
-      todos: [...this.state.todos, newTodo],
+      todos: [...this.state.todos, newTodo]
     })
   }
 
@@ -34,10 +34,22 @@ class App extends Component {
     });
   }
 
+  filter = () => {
+    this.setState({
+      todos: this.state.todos.reverse()
+    });
+  };
+
   render() {
     return (
-      <Container maxWidth="lg">
+      <Container>
         <AddTodo newTodo={this.addNewTodo} todos={this.state.todos} />
+        <Button
+          fullWidth
+          variant="contained"
+          color='primary'
+          title="reverse the order of the todos list"
+          onClick={this.filter}>Reverse Order</Button>
         {
           this.state.todos.map((todo, index) => {
             return <TodoItem

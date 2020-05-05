@@ -6,6 +6,7 @@ A simple React Todo app using material-ui
 
   - [x] Delete Todo
   - [x] Mark as completed
+  - [x] Reverse order
 
 ## What I learned
 

@@ -10,7 +10,6 @@ import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined'
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 class TodoItem extends Component {
-
   deleteTodo = () => {
     const index = this.props.index;
     this.props.deleteTodo(index);
@@ -20,7 +19,6 @@ class TodoItem extends Component {
     const todoId = this.props.id;
     this.props.markCompleted(todoId);
   };
-
 
   render() {
     return (
