@@ -24,9 +24,16 @@ code {
 
 .add-todo-form {
   display: grid;
-  grid-template-columns: 90% 9%;
+  grid-template-columns: 100%;
   margin-bottom: 10px;
   gap: 10px;
+}
+
+@media screen and (min-width: 600px) {
+  .add-todo-form {
+    display: grid;
+    grid-template-columns: 85% 15%;
+  }
 }
 
 .todo-item {
