@@ -23,7 +23,7 @@ class TodoItem extends Component {
   render() {
     return (
       <div>
-        <Card className='margin-top-15'>
+        <Card className='margin-top-15' >
           <CardContent className='todo-item'>
             <Typography
               id='todoEditField'
