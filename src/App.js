@@ -9,8 +9,8 @@ class App extends Component {
     super()
 
     this.state = {
-      todos: [],
-      filteredTodos: [],
+      todos: JSON.parse(localStorage.getItem('todos') || "[]"),
+      filteredTodos: JSON.parse(localStorage.getItem('todos') || "[]"),
       showCompleted: false
     }
   }
@@ -20,11 +20,16 @@ class App extends Component {
       todos: [...this.state.todos, newTodo],
       filteredTodos: [...this.state.filteredTodos, newTodo],
     })
+
+    this.updateLocalStorage()
   }
 
   deleteTodo = (index) => {
-    this.state.todos.splice(index, 1)
+    this.state.todos.splice(index, 1);
+
     this.setState({ filteredTodos: this.state.todos, todos: this.state.todos })
+
+    this.updateLocalStorage()
   };
 
   markCompleted = (todoId) => {
@@ -36,6 +41,8 @@ class App extends Component {
         return todo;
       }),
     });
+
+    this.updateLocalStorage()
   }
 
   reverse = () => {
@@ -65,14 +72,21 @@ class App extends Component {
       todos: [],
       filteredTodos: []
     });
+
+    localStorage.removeItem('todos')
   };
 
+
+  updateLocalStorage = () => {
+    const todos = JSON.stringify(this.state.filteredTodos);
+    localStorage.setItem('todos', todos);
+  }
 
   render() {
     return (
       <div>
         <Container>
-          <AddTodo newTodo={this.addNewTodo} todos={this.state.todos} />
+          <AddTodo newTodo={this.addNewTodo} todos={this.state.filteredTodos} />
           <div className="buttons">
 
           <Button
