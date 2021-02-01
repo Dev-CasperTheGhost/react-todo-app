@@ -1,140 +1,114 @@
-import React, { Component } from 'react';
-import AddTodo from './components/AddTodo'
-import { Container, Button } from '@material-ui/core';
-import TodoItem from './components/TodoItem';
+import { useState } from "react";
+import AddTodo from "./components/AddTodo";
+import { Container, Button } from "@material-ui/core";
+import TodoItem from "./components/TodoItem";
 
+function App() {
+  const [todos, setTodos] = useState([]);
+  const [filteredTodos, setFilteredTodos] = useState([]);
+  const [showCompleted, setShowCompleted] = useState(false);
 
-class App extends Component {
-  constructor() {
-    super()
-
-    this.state = {
-      todos: JSON.parse(localStorage.getItem('todos') || "[]"),
-      filteredTodos: JSON.parse(localStorage.getItem('todos') || "[]"),
-      showCompleted: false
-    }
+  function addNewTodo(todo) {
+    setTodos((prev) => [...prev, todo]);
+    setFilteredTodos((prev) => [...prev, todo]);
   }
 
-  addNewTodo = (newTodo) => {
-    this.setState({
-      todos: [...this.state.todos, newTodo],
-      filteredTodos: [...this.state.filteredTodos, newTodo],
-    })
-
-    this.updateLocalStorage()
+  function deleteTodo(id) {
+    setFilteredTodos((prev) => prev.splice(id, 1));
+    setTodos((prev) => prev.splice(id, 1));
   }
 
-  deleteTodo = (index) => {
-    this.state.todos.splice(index, 1);
-
-    this.setState({ filteredTodos: this.state.todos, todos: this.state.todos })
-
-    this.updateLocalStorage()
-  };
-
-  markCompleted = (todoId) => {
-    this.setState({
-      filteredTodos: this.state.filteredTodos.map(todo => {
-        if (todo.id === todoId) {
+  function markCompleted(id) {
+    setFilteredTodos((prev) => {
+      return prev.map((todo) => {
+        if (todo.id === id) {
           todo.completed = !todo.completed;
         }
+
         return todo;
-      }),
+      });
     });
-
-    this.updateLocalStorage()
   }
 
-  reverse = () => {
-    this.setState({
-      filteredTodos: this.state.filteredTodos.reverse()
-    });
-  };
-
-  filterCompleted = () => {
-    this.setState({
-      showCompleted: true,
-      filteredTodos: [...this.state.todos].filter((todo) => {
-        return todo.completed
-      })
-    })
+  function reverse() {
+    setFilteredTodos((prev) => prev.reverse());
   }
 
-  unFilterCompleted = () => {
-    this.setState({
-      showCompleted: false,
-      filteredTodos: this.state.todos
-    })
+  function filterCompleted() {
+    setShowCompleted((o) => !o);
+    setFilteredTodos((prev) => prev.filter(Boolean));
   }
 
-  deleteAll = () => {
-    this.setState({
-      todos: [],
-      filteredTodos: []
-    });
-
-    localStorage.removeItem('todos')
-  };
-
-
-  updateLocalStorage = () => {
-    const todos = JSON.stringify(this.state.filteredTodos);
-    localStorage.setItem('todos', todos);
+  function unFilterCompleted() {
+    setFilteredTodos(todos);
   }
 
-  render() {
-    return (
-      <div>
-        <Container>
-          <AddTodo newTodo={this.addNewTodo} todos={this.state.filteredTodos} />
-          <div className="buttons">
-
+  return (
+    <div>
+      <Container>
+        <AddTodo newTodo={addNewTodo} todosLength={filteredTodos.length} />
+        <div className="buttons">
           <Button
-              fullWidth
-              variant="contained"
-              color='primary'
-              title="delete all the todos from the list"
-              onClick={this.reverse}>Reverse Order</Button>
-            {
-              this.state.showCompleted ? <Button
-                fullWidth
-                variant="contained"
-                color='primary'
-                title="show all todos"
-                onClick={this.unFilterCompleted}>Show All</Button> :
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color='primary'
-                  title="reverse the order of the todos list"
-                  onClick={this.filterCompleted}>Filter Completed</Button>
-            }
-
+            fullWidth
+            variant="contained"
+            color="primary"
+            title="delete all the todos from the list"
+            onClick={reverse}
+          >
+            Reverse Order
+          </Button>
+          {showCompleted ? (
             <Button
               fullWidth
               variant="contained"
-              color='secondary'
-              title="delete all the todos from the list"
-              onClick={this.deleteAll}>Delete All</Button>
-            
-          </div>
+              color="primary"
+              title="show all todos"
+              onClick={unFilterCompleted}
+            >
+              Show All
+            </Button>
+          ) : (
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              title="reverse the order of the todos list"
+              onClick={filterCompleted}
+            >
+              Filter Completed
+            </Button>
+          )}
 
-          {
-            this.state.filteredTodos.map((todo, index) => {
-              return <TodoItem
-                key={todo.id}
-                index={index}
-                todo={todo.value}
-                deleteTodo={() => { this.deleteTodo(index) }}
-                completed={todo.completed}
-                markCompleted={() => { this.markCompleted(todo.id) }} />
-            })
-          }
-        </Container>
-      </div>
-    );
-  }
+          <Button
+            fullWidth
+            variant="contained"
+            color="secondary"
+            title="delete all the todos from the list"
+            // onClick={this.deleteAll}
+          >
+            Delete All
+          </Button>
+        </div>
 
+        {filteredTodos.map((todo, index) => {
+          return (
+            <TodoItem
+              key={todo.id}
+              index={index}
+              todo={todo.value}
+              deleteTodo={() => {
+                deleteTodo(index);
+              }}
+              completed={todo.completed}
+              markCompleted={() => {
+                markCompleted(todo.id);
+              }}
+            />
+          );
+        })}
+      </Container>
+    </div>
+  );
 }
 
 export default App;
